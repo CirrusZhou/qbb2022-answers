@@ -91,4 +91,50 @@
 	
 	Onaverage, 10293/200=51.465 variants are linked to a gene.
 	
+4. 
+	a. annotate the script
+	bedtools intersect -a H3K27ac.naive_b_cell.GRCh38.bedgraph -b genes.bed -wb | cut -f 8 | sort | uniq > genes_intersecting_H3K27ac_b_cell.txt
+	# this command line uses bedtools intersect to find all H3K27ac signals which are on certain genes. then get the 8th col of the output which have gene names. then sort them and get the uniq gene names into the txt file.
 	
+	bedtools intersect -a H3K9me3.naive_b_cell.GRCh38.bedgraph -b genes.bed -wb | cut -f 8 | sort | uniq > genes_intersecting_H3K9me3_b_cell.txt
+	# this command line uses bedtools intersect to find all H3K9me3 signals which are on certain genes. then get the 8th col of the output which have gene names. then sort them and get the uniq gene names into the txt file.
+
+	grep -v -f genes_intersecting_H3K27ac_b_cell.txt genes_intersecting_H3K9me3_b_cell.txt
+	# from the second file, get lines genes not exist in the first file using grep
+	
+	b.ERRORs found
+	syntax error: when we run bash in the directory of ~/qbb2022-answers/day1-homework, there is no such file like H3K27ac.naive_b_cell.GRCh38.bedgraph in the same directory. We need to construct variables to refer the directory. As is shown below:
+	
+	H3K27ac=/Users/cmdb/data/bed_files/H3K27ac.naive_b_cell.GRCh38.bedgraph
+	genes=/Users/cmdb/data/bed_files/genes.bed
+	H3K9me3=/Users/cmdb/data/bed_files/H3K9me3.naive_b_cell.GRCh38.bedgraph
+
+	bedtools intersect -a $H3K27ac -b $genes -wb | cut -f 8 | sort | uniq > genes_intersecting_H3K27ac_b_cell.txt
+
+	bedtools intersect -a $H3K9me3 -b $genes -wb | cut -f 8 | sort | uniq > genes_intersecting_H3K9me3_b_cell.txt
+	
+	Logic error: the goal is to report any genes that uniquely intersect with H3K27ac but never intersect with H3K9me3 within naive B cells. Thus, for the last step, we need to get rid of H3K9me3 related genes from H3K27ac related genes. So change the file order as below:
+	
+	grep -v -f genes_intersecting_H3K9me3_b_cell.txt genes_intersecting_H3K27ac_b_cell.txt
+	
+	Finally, we get the result: 
+	CRYAA
+	
+5. 
+	ls ~/data/bed_files
+	cd4=/Users/cmdb/data/bed_files/H3K36me3.cd4.GRCh38.bedgraph
+	cd8=/Users/cmdb/data/bed_files/H3K36me3.cd8.GRCh38.bedgraph
+	naive=/Users/cmdb/data/bed_files/H3K27me3.naive_b_cell.GRCh38.bedgraph
+	bedtools subtract -a $cd8 -b $cd4 > file1
+	bedtools subtract -a $cd8 -b $naive > file2
+	bedtools intersect -a file1 -b file2 > unique
+	
+	awk '{print $3-$2}' $cd8 > cd8_fraction
+	awk '{sum += $1};END {print sum}' cd8_fraction
+	result: 33350231
+	
+	awk '{print $3-$2}' unique > unique_fraction
+	awk '{sum += $1};END {print sum}' unique_fraction
+	result: 506
+	
+	Thus, the fraction is 506/33350231 = 0.00001517
