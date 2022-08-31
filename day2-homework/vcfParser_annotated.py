@@ -47,7 +47,8 @@ def parse_vcf(fname):# define a function called parse_vcf, it takes an argument 
                     in_string = False
                     while i < len(fields):
                         if fields[i] == "," and not in_string:
-                            name, value = fields[start:i].split('=')
+                            name = fields[start:i].split('=')[0]
+                            value = fields[start:i].split('=')[1]
                             if name == "ID":
                                 ID = value
                             elif name == "Description":
@@ -91,24 +92,41 @@ def parse_vcf(fname):# define a function called parse_vcf, it takes an argument 
                         info[name] = type_map[Type](value)# here, we're getting the python function for converting the entry to the correct data type
                         #Ex: for AC: info["AC"] = type_map["integer"]["91"]
                                    # info["AC"]
-                fields[7] = info
-                if len(fields) > 8:
-                    fields[8] = fields[8].split(":")
-                    if len(fields[8]) > 1:
-                        for i in range(9, len(fields)):
-                            fields[i] = fields[i].split(':')
-                    else:
-                        fields[8] = fields[8][0]
-                vcf.append(fields)
+                fields[7] = info # replace the 8th item of the "fields" list (i.e., the list of columns in this line) with the "info" dictionary that we just made
+                    # fields[7] used to be :["AC=91", "AN=5096", ..., "NS=2548"]
+                    # now, fields[7] is {"AC":91,
+                                       # "AN":5090
+                                       # ...,
+                                       # "NS":2548}
+                if len(fields) > 8: # if we still have more columns after the INFO column, then we still have more stuff to do.
+                    # example of fields[8] (the FORMAT column): "GT:DP:AF:BG:RU"
+                    fields[8] = fields[8].split(":") # we are spliting the FORMAT column by ":"
+                        # Ex: "GT:DP:AF:BG:RU" --> ["GT","DP","AF","BG","RU"]
+                    if len(fields[8]) > 1: # if there are multiple things in the FORMAT column, we have to deal with all of them individually.
+                        # FORMAT: GT:QV, HG00097: 0|0:0.3
+                        for i in range(9, len(fields)): # this goes through all the genotype columns after the FORMAT column -> for us, this is range(9,2513)
+                            fields[i] = fields[i].split(':')# slipt each genotype column along a ":"
+                                # 0|0;0.3 -> ["0|0","0.3"]
+                        # our "fields" list turns into: ["0|0;0.3","1|1;0.5",...] -> [["0|0","0.3"],["1|1","0.5"],...]
+                    else:# if the genotypes donot have more than one value in them, then we're good 
+                        fields[8] = fields[8][0] # fields[8] is ["GT"]
+                                                 # this code gets you fields[8] = "GT"
+                                                 # we set the value of fields[8] to be "GT", the first item in our fields[8] list 
+                vcf.append(fields) # we've finished reformatting/cleaning all of the columns; now we add this line to our VCF list. The list is storing all the information from the VCF file
+                    # "fields" is a list that contains the information for the current line that we're working on
             except: # if anything in the try block fails, then:
                 malformed += 1
+    # these next three lines ar modifying the first line of the vcf list to match information from the header
     vcf[0][7] = info_description
     if len(vcf[0]) > 8:
         vcf[0][8] = format_description
+    # if there were any malformed lines, we're going to print out the number of lines so the user knows
     if malformed > 0:
         print(f"There were {malformed} malformed entries", file=sys.stderr)
+    # at the very end of running the function, return the vcf list, Give me the data back.
     return vcf
 
+#ignore all of these
 if __name__ == "__main__":
     fname = sys.argv[1]
     vcf = parse_vcf(fname)
