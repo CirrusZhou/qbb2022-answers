@@ -2,4 +2,4 @@
 
 1. see the file vcfParser_annotated.py
 
-2. There are 101 enlabeled records.
+2. There are 100 enlabeled records.

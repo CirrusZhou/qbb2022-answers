@@ -12,7 +12,7 @@ pos_id = {}
 
 # go through every line in dbSNP (except the head line), and store the position as key and id as value into pos_id
 for i in range(len(dbSNP)):
-    if i == 1:
+    if i == 0:
         continue
     else:
         pos_id[dbSNP[i][1]] = dbSNP[i][2]
@@ -21,16 +21,24 @@ for i in range(len(dbSNP)):
 unlabel = 0
 # go through every line in random (except the head line)       
 for i in range(len(random)):
-    if i == 1:
+    if i == 0:
+        print(random[0][0:5])
         continue
-    # try to find id in pos_id according to the position. 
-    try:
-        #Replaces the ID in each record from random_snippet.vcf with the correct label
+    # try to find id in pos_id according to the position.
+    '''
+    if random[i][1] in pos_id.keys():
         random[i][2] = pos_id[random[i][1]]
+    else:
+        unlabel +=1
+    ''' 
+    try:
+        # Replaces the ID in each record from random_snippet.vcf with the correct label
+        random[i][2] = pos_id[random[i][1]]
+        # print(pos_id[random[i][1]])
     # if id is not found, add one to unlabel, showing one more record does not have id.
     except:
         unlabel +=1
-        
+    
 # tell the user how many records are not labeled.
 print (f"There are {unlabel} enlabeled records.")      
 
