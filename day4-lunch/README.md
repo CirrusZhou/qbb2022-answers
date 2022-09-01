@@ -52,3 +52,4 @@
 	    grep $TYPE $CHR.gtf | awk 'BEGIN {OFS="\t"}{if ($3=="gene"){print $1, $4-1, $5}}' > $TYPE.$CHR.bed
 	done
 	'
+3. The trends: most of the allele count tends to be under 1000. only a small amount of them are larger then 1000.
