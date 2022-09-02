@@ -95,6 +95,7 @@
 
 ## exercise 2	
 1. test for an association between maternal age and maternally inherited de novo mutations
+	```
 	==============================================================================
 	Dep. Variable:                m_count   R-squared:                       0.228
 	Model:                            OLS   Adj. R-squared:                  0.226
@@ -117,10 +118,12 @@
 	Kurtosis:                       4.310   Cond. No.                         121.
 	==============================================================================
 	
+	```
 	The relationship is significant. 
 	The size of this relationship is 0.3776
 
 2. test for an association between paternal age and paternally inherited de novo mutations.
+	```
 	==============================================================================
 	Dep. Variable:                f_count   R-squared:                       0.619
 	Model:                            OLS   Adj. R-squared:                  0.618
@@ -142,7 +145,7 @@
 	Skew:                           0.256   Prob(JB):                       0.0167
 	Kurtosis:                       3.483   Cond. No.                         127.
 	==============================================================================
-
+	```
 	The relationship is significant. 
 	The size of this relationship is 1.3538
 	
