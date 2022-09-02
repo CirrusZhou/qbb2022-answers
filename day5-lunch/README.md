@@ -20,14 +20,17 @@
     55 102313
     77 102727
 	~and count only mother
-	```grep -v "Chr" aau1043_dnm.csv |grep "mother" | cut -d "," -f 5 |sort|uniq -c > maternal_count```
+	```
+	grep -v "Chr" aau1043_dnm.csv |grep "mother" | cut -d "," -f 5 |sort|uniq -c > maternal_count
     12 100770
     16 101199
     30 101332
      8 102060
     28 102313
+	```
 	~then we join father and mother count into one file
-	```join -1 2 -2 2 -o 1.2,1.1,2.1 paternal_count maternal_count > joined_count```
+	```
+	join -1 2 -2 2 -o 1.2,1.1,2.1 paternal_count maternal_count > joined_count
 	
 	100770 72 12
 	101199 70 16
@@ -38,6 +41,7 @@
 	103818 45 17
 	104333 46 15
 	104502 57 11
+	```
 
 2. let's see how does aau1043_parental_age.csv look like:
 	Proband_id,Father_age,Mother_age
@@ -65,7 +69,7 @@
 	3723 32 30
 	
 	~join the file together according to the proband_id
-	join -1 1 -2 1 <(sort joined_count) <(sort aau1043_parental_age.txt) > age_count
+	```join -1 1 -2 1 <(sort joined_count) <(sort aau1043_parental_age.txt) > age_count
 	
 	101199 70 16 29 30
 	101332 55 30 37 33
@@ -73,14 +77,16 @@
 	102313 55 28 30 35
 	102727 77 14 39 32
 	103818 45 17 20 22
-	
+	```
 	~let us check whether we are right 
+	```
 	(base) [~/qbb2022-answers/day5-lunch $]grep "101199" joined_count
 	101199 70 16
 	(base) [~/qbb2022-answers/day5-lunch $]grep "101199" aau1043_parental_age.txt
 	101199 29 30
 	(base) [~/qbb2022-answers/day5-lunch $]grep "101199" age_count
 	101199 70 16 29 30
+	```
 	
 	Looks great!
 
