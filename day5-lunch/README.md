@@ -44,6 +44,7 @@
 	```
 
 2. let's see how does aau1043_parental_age.csv look like:
+	```
 	Proband_id,Father_age,Mother_age
 	675,31,36
 	1097,19,19
@@ -53,8 +54,8 @@
 	2280,38,20
 	3190,35,25
 	3212,23,19
-	
-	
+	```	
+	```
 	grep -v "Proband_id" aau1043_parental_age.csv | cat | tr ',' ' ' > aau1043_parental_age.txt
 	675 31 36
 	1097 19 19
@@ -67,6 +68,7 @@
 	3450 25 22
 	3578 23 20
 	3723 32 30
+	```
 	
 	~join the file together according to the proband_id
 	```join -1 1 -2 1 <(sort joined_count) <(sort aau1043_parental_age.txt) > age_count
