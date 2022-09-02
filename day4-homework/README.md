@@ -26,7 +26,7 @@
 
 2. Generally, we all use binomial test to analyze our data, and we use a heatmap to show power of the test under different probabilities and sample sizes. 
 
-	There are also some differences. Firstly, article's probability has max 0.7, we have max 1. Also, article's sample size is much larger than ours. Secondly, for the p-value corrected panel, they use a threshold of 1.78*10^-7, we still use 0.05.
+	There are also some differences. Firstly, article's probability has max 0.7, we have max 1. Also, article's sample size is much larger than ours. Secondly, for the p-value corrected panel, they use a threshold of 1.78*10^-7, we still use 0.05. Thirdly, our x axis is in log scale, so the trend should be more significant
 
 	Specifically, probability of heads corresponds to the transmission rate axis.  number of tosses corresponds to the Number of sperm axis
 	

@@ -95,8 +95,10 @@ def run_experiment(figname,probs = numpy.around(numpy.arange(0.55, 1.05, 0.05), 
 
     fig, ax = plt.subplots()
     ax = sns.heatmap(power_arr, vmin=0, vmax=1, cmap ="Greys", xticklabels = tosses, yticklabels = probs)
+    ax.title.set_text(figname)
     plt.savefig(figname)
     plt.close(fig)
+    
     return power_arr
 
 
@@ -104,6 +106,6 @@ def run_experiment(figname,probs = numpy.around(numpy.arange(0.55, 1.05, 0.05), 
 #power2 = run_experiment(0.95, 10, correct_the_pvalues = True)
 #power2b = run_experiment(0.95, 10)
 
-try1 = run_experiment(correct_the_pvalues = True,figname="fig1.png")
-try2 = run_experiment(correct_the_pvalues = False,figname="fig2.png")
+try1 = run_experiment(correct_the_pvalues = True,figname="correct_pvalues.png")
+try2 = run_experiment(correct_the_pvalues = False,figname="uncorrected_pvalues.png")
 #print(power1)
