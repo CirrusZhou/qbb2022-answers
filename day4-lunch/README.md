@@ -53,3 +53,26 @@
 	done
 	'
 3. The trends: most of the allele count tends to be under 1000. only a small amount of them are larger then 1000.
+
+##exercise4 document for  bxlab/cmdb-plot-vcfs
+###SYNOPSIS
+1. this file contain scripts to deal with GTF file, combine it with known VCF file. Also to look at the allele count of different features, 
+2. it will tell you how many bp does each feature (including exon, processed_pseudogene, protein_coding, and lncRNA) cover.
+3. it will return bed and vcf files for each feature(including exon, processed_pseudogene, protein_coding, and lncRNA).
+4. it will also return the histogram plot of the density of each feature's allele counts.
+###USAGE
+1. bash do_all.sh <thing1> <thing2>
+	<thing1> the vcf file we need, like random_snippet.vcf
+	<thing2> the gtf file we need, like chr21.gtf
+		
+###DEPENDENCIES
+1. create the environment
+	conda create --name day4-lunch
+	conda activate day4-lunch
+2. install bedtools and matplotlib
+	conda install bedtools matplotlib
+###DESCRIPTION
+1. Create .bed files for features of interest
+	- Run subset_regions.sh Bash script
+	- Use grep to get the line with specific feature we want, like protein_coding, processed_pseudogene, lncRNA and exon
+		exons are exons with protein-coding genetype, but not other exons
