@@ -1,0 +1,3 @@
+# Feedback day2-lunch
+
+Overall this is excellent code. I appreciate your use of `map` to do the type conversions on the complex fields. It appears to be a conscious choice to include malformed lines in the bed list. Think about how you might need to change your code to exclude them. You appear to be comfortable with the concepts used in this exercise and how to implement them. Great job, and keep up the good work!
