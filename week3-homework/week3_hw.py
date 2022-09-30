@@ -38,10 +38,10 @@ for n,line in enumerate(vcf):
     effect_list=line[7]['ANN'].split(',')
     for i in effect_list:
         each=i.split("|")
-        if each[1] not in effect_name.keys():
-            effect_name[each[1]]=1
+        if each[2] not in effect_name.keys():
+            effect_name[each[2]]=1
         else:
-            effect_name[each[1]]+=1
+            effect_name[each[2]]+=1
     
     #get all the read depth and quality
     for i in range(9,19):
@@ -55,7 +55,7 @@ for n,line in enumerate(vcf):
             continue
 
 
-fig, ax = plt.subplots(nrows=2,ncols=2,figsize=(48,24),squeeze=False)
+fig, ax = plt.subplots(nrows=2,ncols=2,figsize=(24,12),squeeze=False)
 ax[0][0].hist(read_depth)
 ax[0][0].set_yscale("log")
 ax[0][0].set_ylabel("Counts")
@@ -84,7 +84,7 @@ for i in effect_name.keys():
 x=np.array(effect_name_keys)
 y=np.array(effect_name_values)
 ax[1][1].bar(x,y)
-plt.xticks(fontsize=8,rotation=-30)
+#plt.xticks(fontsize=8,rotation=-30)
 ax[1][1].set_ylabel("Counts")
 ax[1][1].set_xlabel("Predicted effects")
 ax[1][1].title.set_text("Summary of predicted effects")
