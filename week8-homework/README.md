@@ -43,6 +43,5 @@ samtools index chr20_h2.bam
 
 6.
 Do you expect each region in H1 or H2 to correspond to the same parent of origin (i.e. the same haplotype)? Explain your reasoning.
-Yes, because the file split is according to the tag assigned before. H1 always have the same tag, which should be mother, and H2 should always be the father.
+No, because they could only tell one reads from different parents, but could make H1 always mother and H2 always father.
 
-7.
