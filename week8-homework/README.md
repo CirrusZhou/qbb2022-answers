@@ -43,6 +43,6 @@ samtools index chr20_h2.bam
 
 6.
 Do you expect each region in H1 or H2 to correspond to the same parent of origin (i.e. the same haplotype)? Explain your reasoning.
-No, because the file split does not have direction, the h1 for chr11 may not be h1 for chr14 or others.
+Yes, because the file split is according to the tag assigned before. H1 always have the same tag, which should be mother, and H2 should always be the father.
 
 7.
